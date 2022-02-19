@@ -7,6 +7,7 @@ public class GunFire : MonoBehaviour
     public float fireDelay;
     public float reloadDuration;
     public float zoomSlowdown;
+    public float damage;
     public string GunType;
 
     public GameObject bullet;
@@ -28,6 +29,8 @@ public class GunFire : MonoBehaviour
     
     private bool readyToFire = true;
     public bool zoomed = false;
+
+    private GameObject lastBullet;
 
     void Start()
     {
@@ -99,7 +102,10 @@ public class GunFire : MonoBehaviour
     {
         if (readyToFire & ammo.GetComponent<Ammo>().ammo > 0)
         {
-            Instantiate(bullet, new Vector3(transform.position.x, transform.position.y + yOffset, transform.position.z), transform.rotation, bullets);
+            lastBullet = Instantiate(bullet, new Vector3(transform.position.x, transform.position.y + yOffset, transform.position.z), transform.rotation, bullets);
+
+            lastBullet.GetComponent<BulletMovements>().damage = damage;
+            
             fireParticles.SetActive(true);
             readyToFire = false;
 

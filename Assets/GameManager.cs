@@ -6,6 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public GameObject enemy;
     public GameObject colt1911;
+    public GameObject player;
+
+    public GameObject deadText;
+    public GameObject deadPanel;
+
     public int enemyCount;
 
     public Transform items;
@@ -13,6 +18,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
+
         System.Random rnd = new System.Random();
         for (int i = 0; i < enemyCount; i++)
         {
@@ -24,7 +31,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        if (player.GetComponent<Condition>().health <= 0)
+        {
+            deadPanel.SetActive(true);
+            deadText.SetActive(true);
+        }
     }
 }

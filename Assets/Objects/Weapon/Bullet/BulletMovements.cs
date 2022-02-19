@@ -7,6 +7,7 @@ public class BulletMovements : MonoBehaviour
 {
     public float speed;
     public Rigidbody rb;
+    public float damage;
 
     // Update is called once per frame
     void Start()
@@ -19,9 +20,7 @@ public class BulletMovements : MonoBehaviour
         Destroy(gameObject);
         if (collision.gameObject.name == "Enemy(Clone)")
         {
-            System.Random rnd = new System.Random();
-
-            collision.transform.localPosition = new Vector3(rnd.Next(-45, 45), 1.5f, rnd.Next(-45, 45));
+            collision.gameObject.GetComponent<EntityCondition>().health -= damage;
         }
     }
 }
